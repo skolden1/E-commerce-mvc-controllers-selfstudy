@@ -16,8 +16,7 @@
 				<p>@p.Description</p>
 				<p>@p.Price.ToString("C")</p>
 
-				<form method="post">
-					<input type="hidden" asp-area="Cart" asp-action="AddToCart" asp-route-id="@p.ProductId" />
+			<form method="post" asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@p.ProductId">
 					<button type="submit">Lägg till i kundvagn</button>
 				</form>
 		</div>

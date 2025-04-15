@@ -15,10 +15,23 @@
 	<p>@Model.Description</p>
 	<p>@Model.Price.ToString("C")</p>
 
-	<form method="post">
-		<input type="hidden" asp-area="Cart" asp-action="AddToCart" asp-route-id="@Model.ProductId" />
+	<form method="post" asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@Model.ProductId">
 		<button type="submit">Lägg till i kundvagn</button>
 	</form>
+
+	@if (TempData["ErrorMsg"] != null)
+	{
+		<div class="alert alert-danger">
+			@TempData["ErrorMsg"]
+		</div>
+	}
+
+	@if (TempData["SuccessMsg"] != null)
+	{
+		<div class="alert alert-success">
+			@TempData["SuccessMsg"]
+		</div>
+	}
 </div>
 
 
