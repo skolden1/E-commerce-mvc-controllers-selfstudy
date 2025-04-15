@@ -28,6 +28,7 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+// Configurera HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -42,10 +43,10 @@ app.UseStaticFiles();
 
 app.UseAuthorization();
 
+// Mappar Razor Pages
+app.MapRazorPages();  // Endast denna behövs för Razor Pages
 
-app.MapRazorPages();  
-
-
+// Mappar standardrutt för MVC (controllers)
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
