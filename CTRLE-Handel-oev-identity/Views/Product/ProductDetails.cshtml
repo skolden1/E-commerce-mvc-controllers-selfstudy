@@ -1,0 +1,24 @@
+﻿@using CTRLE_Handel_oev_identity.Model
+@model Product
+@{
+}
+
+<link rel="stylesheet" href="~/css/Product.css">
+
+<h3>Produkt id: @Model.ProductId</h3>
+
+<div class="card-container">
+	
+	<img src="~/images/@Model.ImageUrl" alt="@Model.ProductName" />
+	
+	<h5 class="product-name">@Model.ProductName</h5>
+	<p>@Model.Description</p>
+	<p>@Model.Price.ToString("C")</p>
+
+	<form method="post">
+		<input type="hidden" asp-area="Cart" asp-action="AddToCart" asp-route-id="@Model.ProductId" />
+		<button type="submit">Lägg till i kundvagn</button>
+	</form>
+</div>
+
+

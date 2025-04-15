@@ -1,0 +1,25 @@
+﻿@using CTRLE_Handel_oev_identity.Model
+@model List<Product>
+	@{
+	}
+
+<link rel="stylesheet" href="~/css/Product.css">
+
+<div class="wrapper">
+	@foreach (var p in Model)
+	{
+		<div class="card-container">
+			<a asp-area="Product" asp-action="ProductDetails" asp-route-id="@p.ProductId">
+				<img src="~/images/@p.ImageUrl" alt="@p.ProductName"/>
+			</a>
+				<h5 class="product-name">@p.ProductName</h5>
+				<p>@p.Description</p>
+				<p>@p.Price.ToString("C")</p>
+
+				<form method="post">
+					<input type="hidden" asp-area="Cart" asp-action="AddToCart" asp-route-id="@p.ProductId" />
+					<button type="submit">Lägg till i kundvagn</button>
+				</form>
+		</div>
+	}
+</div>
