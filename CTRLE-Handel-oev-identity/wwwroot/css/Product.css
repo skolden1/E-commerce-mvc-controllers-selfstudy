@@ -18,7 +18,18 @@ button{
     border-radius: 4px;
 }
 
-button:hover{
+.cart-button{
+    background-color: crimson;
+    width: 125px;
+    color: whitesmoke;
+}
+
+.button-container{
+    display: flex;
+    gap: 10px;
+}
+
+button:hover {
     background-color: blue;
     color: aliceblue
 }

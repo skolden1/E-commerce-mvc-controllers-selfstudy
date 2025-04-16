@@ -1,0 +1,51 @@
+﻿@using CTRLE_Handel_oev_identity.Model
+@model List<Cart>
+@{
+}
+
+
+<div class="container my-5">
+    <h2 class="mb-4 text-center">🛒 Din kundvagn</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center">
+            Din kundvagn är tom.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Produkt</th>
+                        <th>Bild</th>
+                        <th>Antal</th>
+                        <th>Pris/st</th>
+                        <th>Totalt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Product.ProductName</td>
+                            <td>
+                                <img src="@item.Product.ImageUrl" alt="@item.Product.ProductName" class="img-thumbnail" style="width: 100px; height: auto;" />
+                            </td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Product.Price.ToString("0.00") kr</td>
+                            <td>@(item.Product.Price * item.Quantity).ToString("0.00") kr</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-end mt-4">
+            <h4>Totalt att betala: <span class="text-success fw-bold">@* @total *@.ToString("0.00") kr</span></h4>
+            <a href="/Checkout" class="btn btn-primary mt-3">Gå till kassan</a>
+        </div>
+    }
+</div>

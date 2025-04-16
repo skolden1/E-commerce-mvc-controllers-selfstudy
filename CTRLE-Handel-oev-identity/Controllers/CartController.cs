@@ -20,6 +20,33 @@ namespace CTRLE_Handel_oev_identity.Controllers
 
         public string ErrorMsg { get; set; }
 
+        //onget
+        public async Task<IActionResult> ViewCart()
+        {
+            var loggedInUser = await _userManager.GetUserAsync(User);
+
+            if (loggedInUser == null)
+            {
+                ErrorMsg = "Du måste logga in för att se din kundvagn";
+                return View();
+            }
+
+            var cartList = await _context.Cart
+                .Include(p => p.Product)
+                .Where(u => u.UserId == loggedInUser.Id)
+                .ToListAsync();
+
+            if (!cartList.Any())
+            {
+                ErrorMsg = "Din varukorg är tom";
+                return View();
+            }
+
+            return View(cartList);
+        }
+
+
+        //onpost
         [HttpPost]
         public async Task<IActionResult> AddToCart(int productId)
         {
@@ -48,6 +75,8 @@ namespace CTRLE_Handel_oev_identity.Controllers
 
             await _context.Cart.AddAsync(cart);
             await _context.SaveChangesAsync();
+
+            TempData["SuccessMsg"] = "Produkten har lagts till i kundvagnen!";
 
             return RedirectToAction("Index", "Product");
         }
