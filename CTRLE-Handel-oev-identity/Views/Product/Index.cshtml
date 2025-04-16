@@ -5,6 +5,13 @@
 
 <link rel="stylesheet" href="~/css/Product.css" asp-append-version="true">
 
+@if (TempData["ErrorMsg"] != null)
+{
+	<div class="alert alert-danger">
+		@TempData["ErrorMsg"]
+	</div>
+}
+
 @if (TempData["SuccessMsg"] != null)
 {
 	<div class="alert alert-success">

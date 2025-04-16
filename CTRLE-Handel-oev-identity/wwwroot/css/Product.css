@@ -18,6 +18,10 @@ button{
     border-radius: 4px;
 }
 
+h2, h4 {
+    color: whitesmoke;
+}
+
 .cart-button{
     background-color: crimson;
     width: 125px;
