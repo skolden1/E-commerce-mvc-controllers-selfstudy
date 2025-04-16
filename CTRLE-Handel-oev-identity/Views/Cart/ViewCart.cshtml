@@ -7,6 +7,22 @@
 <div class="container my-5">
     <h2 class="mb-4 text-center">🛒 Din kundvagn</h2>
 
+
+    @if (TempData["ErrorMsg"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+            @TempData["ErrorMsg"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Stäng"></button>
+        </div>
+    }
+    @if (TempData["SuccessMsg"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+            @TempData["SuccessMsg"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Stäng"></button>
+        </div>
+    }
+
     @if (Model == null || !Model.Any())
     {
         <div class="alert alert-info text-center">
@@ -34,18 +50,39 @@
                             <td>
                                 <img src="~/images/@item.ImageUrl" alt="@item.Product.ProductName" class="img-thumbnail" style="width: 100px; height: auto;" />
                             </td>
-                            <td>@item.Quantity</td>
-                            <td>@item.Product.Price.ToString("0.00") kr</td>
-                            <td>@(item.Product.Price * item.Quantity).ToString("0.00") kr</td>
+                                <td>
+                                <div class="d-flex align-items-center justify-content-center gap-2">
+                                    <form method="post" asp-action="DecreaseQuantity" class="m-0">
+                                        <input type="hidden" name="productId" value="@item.ProductId" />
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                                            <i class="bi bi-dash-lg"><strong>-</strong></i>
+                                        </button>
+                                    </form>
+
+                                    <span class="fw-bold">@item.Quantity</span>
+
+                                    <form method="post" asp-action="IncreaseQuantity" class="m-0">
+                                        <input type="hidden" name="productId" value="@item.ProductId" />
+                                        <button type="submit" class="btn btn-outline-primary btn-sm">
+                                            <i class="bi bi-plus-lg"><strong>+</strong></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                </td>
+                            
+                            <td>@item.Product.Price.ToString("C")</td>
+                            <td>@((item.Product.Price * item.Quantity).ToString("C"))</td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
-
+             
         <div class="text-end mt-4">
-            <h4>Totalt att betala: <span class="text-success fw-bold">@* @total *@.ToString("0.00") kr</span></h4>
+            <h4>Totalt att betala: <span class="text-success fw-bold">@ViewBag.TotalPrice.ToString("C")</span></h4>
+            <a href="/Product" class="btn btn-primary mt-3">Tillbaka till produkter</a>
             <a href="/Checkout" class="btn btn-primary mt-3">Gå till kassan</a>
+
         </div>
     }
 </div>
