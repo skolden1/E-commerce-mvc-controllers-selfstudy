@@ -14,6 +14,25 @@ namespace CTRLE_Handel_oev_identity.Controllers
         }
 
         public List<Product> ProductList { get; set; } = new List<Product>();
+
+        public async Task<IActionResult> SearchBar(string SearchWord)
+        {
+            if (string.IsNullOrWhiteSpace(SearchWord))
+            {
+                var showAllProducts = await _context.Products.ToListAsync();
+                return View("Index", showAllProducts);
+            }
+
+            var searchResult = await _context.Products.Where(p => p.ProductName.ToUpper() == SearchWord.ToUpper() || p.Category.CategoryName.ToUpper() == SearchWord.ToUpper()).ToListAsync();
+
+            if (!searchResult.Any() || searchResult == null)
+            {
+                return RedirectToAction("Index", "Product");
+            }
+
+            return View("Index", searchResult);
+        }
+
         public async Task<IActionResult> Index()
         {
             var ProductList = await _context.Products.ToListAsync();
@@ -29,10 +48,7 @@ namespace CTRLE_Handel_oev_identity.Controllers
                     new Product{ProductName = "Tröja grön", Description = "En fin grön tröja", Price = 39.99M, ImageUrl = "product11.png", CategoryId = 2},
 
                     new Product{ProductName = "Keps grön", Description = "En fin grön keps", Price = 29.99M, ImageUrl = "product7.png", CategoryId = 2},
-                    new Product{ProductName = "Keps blå", Description = "En fin blå keps", Price = 29.99M, ImageUrl = "product8.png", CategoryId = 2}
-
-                    
-
+                    new Product{ProductName = "Keps blå", Description = "En fin blå keps", Price = 29.99M, ImageUrl = "product8.png", CategoryId = 2}                  
                     
                 };
 

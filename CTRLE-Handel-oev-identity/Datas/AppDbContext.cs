@@ -16,5 +16,6 @@ namespace CTRLE_Handel_oev_identity.Datas
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Cart> Cart { get; set; }
+        public DbSet<OrderInfoViewModel> OrderInfoViewModels { get; set; }
     }
 }

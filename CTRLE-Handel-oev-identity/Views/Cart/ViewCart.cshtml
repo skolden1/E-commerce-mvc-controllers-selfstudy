@@ -81,7 +81,7 @@
         <div class="text-end mt-4">
             <h4>Totalt att betala: <span class="text-success fw-bold">@ViewBag.TotalPrice.ToString("C")</span></h4>
             <a href="/Product" class="btn btn-primary mt-3">Tillbaka till produkter</a>
-            <a href="/Checkout" class="btn btn-primary mt-3">Gå till kassan</a>
+            <a asp-controller="Buy" asp-action="Index" class="btn btn-primary mt-3">Gå till kassan</a>
 
         </div>
     }

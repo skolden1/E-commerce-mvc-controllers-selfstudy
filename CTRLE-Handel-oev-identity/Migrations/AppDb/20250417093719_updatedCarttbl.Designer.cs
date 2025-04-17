@@ -4,6 +4,7 @@ using CTRLE_Handel_oev_identity.Datas;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTRLE_Handel_oev_identity.Migrations.AppDb
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250417093719_updatedCarttbl")]
+    partial class updatedCarttbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,9 +89,6 @@ namespace CTRLE_Handel_oev_identity.Migrations.AppDb
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderInfoViewModelId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -100,8 +100,6 @@ namespace CTRLE_Handel_oev_identity.Migrations.AppDb
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CartId");
-
-                    b.HasIndex("OrderInfoViewModelId");
 
                     b.HasIndex("ProductId");
 
@@ -148,27 +146,6 @@ namespace CTRLE_Handel_oev_identity.Migrations.AppDb
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("CTRLE_Handel_oev_identity.Model.OrderInfoViewModel", b =>
-                {
-                    b.Property<int>("OrderInfoViewModelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderInfoViewModelId"));
-
-                    b.Property<string>("CardNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("OrderInfoViewModelId");
-
-                    b.ToTable("OrderInfoViewModels");
                 });
 
             modelBuilder.Entity("CTRLE_Handel_oev_identity.Model.OrderItem", b =>
@@ -235,10 +212,6 @@ namespace CTRLE_Handel_oev_identity.Migrations.AppDb
 
             modelBuilder.Entity("CTRLE_Handel_oev_identity.Model.Cart", b =>
                 {
-                    b.HasOne("CTRLE_Handel_oev_identity.Model.OrderInfoViewModel", null)
-                        .WithMany("CartItems")
-                        .HasForeignKey("OrderInfoViewModelId");
-
                     b.HasOne("CTRLE_Handel_oev_identity.Model.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
@@ -297,11 +270,6 @@ namespace CTRLE_Handel_oev_identity.Migrations.AppDb
             modelBuilder.Entity("CTRLE_Handel_oev_identity.Model.Order", b =>
                 {
                     b.Navigation("OrderItems");
-                });
-
-            modelBuilder.Entity("CTRLE_Handel_oev_identity.Model.OrderInfoViewModel", b =>
-                {
-                    b.Navigation("CartItems");
                 });
 
             modelBuilder.Entity("CTRLE_Handel_oev_identity.Model.Product", b =>
