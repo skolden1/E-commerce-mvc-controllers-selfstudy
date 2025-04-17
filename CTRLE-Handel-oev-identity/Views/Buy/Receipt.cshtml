@@ -1,0 +1,25 @@
+﻿@using CTRLE_Handel_oev_identity.Model
+@model Order
+
+<div class="container mt-5">
+    <div class="card bg-dark text-light shadow-lg rounded-4">
+        <div class="card-header border-bottom border-secondary">
+            <h2 class="text-center">Tack för ditt köp!</h2>
+        </div>
+        <div class="card-body">
+            <p>Din beställning är genomförd och kommer att behandlas snart.</p>
+            <p><strong>Ordernummer:</strong> @Model.OrderId</p>
+            <p><strong>Totalt belopp:</strong> @Model.TotalAmount.ToString("C")</p>
+
+            <h3>Orderdetaljer:</h3>
+            <ul>
+                @foreach (var item in Model.OrderItems)
+                {
+                    <li>
+                        @item.Product.ProductName - @item.Quantity st  @item.Price.ToString("C")
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

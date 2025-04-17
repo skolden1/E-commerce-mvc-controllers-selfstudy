@@ -1,9 +1,19 @@
 ﻿@using CTRLE_Handel_oev_identity.Model
-@model List<Cart>
+@model OrderInfoViewModel
 @{
+	decimal total = 0;
 }
 
-@foreach (var i in Model)
+<h2>Kassa</h2>
+
+
+@foreach (var item in Model.CartItems)
 {
-	
+	var subtotal = item.Quantity * item.Product.Price;
+	total = subtotal;
+
+	<p>@item.Product.ProductName - @item.Quantity x @item.Product.Price.ToString("C")</p>
 }
+
+	<p><strong>Totalt: @total.ToString("C")</strong></p>
+

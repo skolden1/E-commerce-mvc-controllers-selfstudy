@@ -10,7 +10,7 @@ namespace CTRLE_Handel_oev_identity.Model
         public decimal TotalAmount { get; set; }  // Totalt belopp för beställningen
 
         // Navigeringsegenskap till användaren (relaterar till IdentityUserTable)
-        public IdentityUserTable User { get; set; }
+        //public IdentityUserTable User { get; set; }
 
         // Navigeringsegenskap till orderitems
         public List<OrderItem> OrderItems { get; set; }  // En order kan innehålla flera OrderItems

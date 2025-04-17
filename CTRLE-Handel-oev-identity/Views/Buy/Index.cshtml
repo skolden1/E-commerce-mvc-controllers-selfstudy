@@ -1,0 +1,47 @@
+﻿@using CTRLE_Handel_oev_identity.Model
+@model OrderInfoViewModel
+
+@{
+    decimal total = 0;
+}
+
+<div class="container mt-5">
+    <div class="card bg-dark text-light shadow-lg rounded-4">
+        <div class="card-header border-bottom border-secondary">
+            <h2 class="text-center">🛒 Kassa</h2>
+        </div>
+        <div class="card-body">
+            @foreach (var item in Model.CartItems)
+            {
+                var subtotal = item.Quantity * item.Product.Price;
+                total += subtotal;
+
+                <div class="d-flex justify-content-between border-bottom border-secondary py-2">
+                    <span>@item.Product.ProductName (@item.Quantity x @item.Product.Price.ToString("C"))</span>
+                    <span>@subtotal.ToString("C")</span>
+                </div>
+            }
+
+            <div class="d-flex justify-content-between mt-4 border-top pt-3 border-light">
+                <strong>Totalt:</strong>
+                <strong>@total.ToString("C")</strong>
+            </div>
+
+            <form asp-action="Buy" method="post" class="mt-4">
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Namn</label>
+                    <input type="text" name="FullName" class="form-control bg-secondary text-light border-0" placeholder="För- och efternamn" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="cardNumber" class="form-label">Kortnummer</label>
+                    <input type="text" name="CardNumber" class="form-control bg-secondary text-light border-0" placeholder="1234 5678 9012 3456" required />
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success btn-lg">Köp</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
